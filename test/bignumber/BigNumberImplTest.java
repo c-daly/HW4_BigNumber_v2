@@ -9,6 +9,7 @@ public class BigNumberImplTest {
     @Test
     public void testParameterlessConstructor() {
         BigNumber num = new BigNumberImpl();
+        assertEquals("0", num.toString());
     }
 
     @Test
@@ -28,6 +29,7 @@ public class BigNumberImplTest {
     @Test
     public void length() {
         BigNumber num = new BigNumberImpl();
+        num.shiftLeft(1);
         assertEquals(1, num.length());
     }
 

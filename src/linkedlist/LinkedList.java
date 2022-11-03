@@ -7,7 +7,9 @@ import linkedlist.interfaces.ILinkedList;
 public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
     private Node<T> head;
 
-    public LinkedList() {
+    public LinkedList() {}
+    public LinkedList(T initial_val) {
+        head = new Node<T>(initial_val);
     }
 
     @Override

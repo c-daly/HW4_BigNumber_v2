@@ -12,8 +12,7 @@ public class BigNumberImpl implements BigNumber {
     }
 
     public BigNumberImpl(String number) {
-        this.digits = new LinkedList<Integer>();
-
+        this.digits = new LinkedList<Integer>(0);
         for (int x = 0; x < number.length(); x++) {
             int i = Character.getNumericValue(number.charAt(x));
             if (i < 0 || i > 9) {
@@ -46,9 +45,9 @@ public class BigNumberImpl implements BigNumber {
 
     @Override
     public void shiftLeft(int num_shifts) {
-        //if (digitsEqualZero()) {
-        //    return;
-        //}
+        if (digitsEqualZero()) {
+            return;
+        }
         if (num_shifts < 0) {
             //shiftRight(num_shifts * -1);
             return;
@@ -145,7 +144,7 @@ public class BigNumberImpl implements BigNumber {
             return false;
         }
         while (it.hasNext()) {
-            if (it.next() > 0) {
+            if (it.next() > 0 || it.currentValue() > 0) {
                 return false;
             }
         }
