@@ -5,7 +5,7 @@ import iterator.interfaces.ILinkedListIterator;
 import linkedlist.interfaces.ILinkedList;
 
 public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
-    private Node head;
+    private Node<T> head;
 
     public LinkedList() {
     }
@@ -53,8 +53,17 @@ public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
 
     @Override
     public T get(int index) {
-        Node<T> current = getNodeAtIndex(index);
-        return current.value;
+        int x = 0;
+        Node<T> tp = head;
+
+        while (tp != null) {
+            if (x == index) {
+                return tp.value;
+            }
+            x += 1;
+            tp = tp.next;
+        }
+        return tp.value;
     }
 
     @Override

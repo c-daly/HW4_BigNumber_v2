@@ -9,14 +9,13 @@ public class BigNumberImplTest {
     @Test
     public void testParameterlessConstructor() {
         BigNumber num = new BigNumberImpl();
-
     }
 
     @Test
     public void testStringConstructor() {
-        BigNumber num = new BigNumberImpl("87099998372888190123456789");
+        BigNumber num = new BigNumberImpl("1000000000");
         System.out.println(num);
-        assertEquals("87099998372888190123456789", num.toString());
+        assertEquals("1000000000", num.toString());
     }
 
     @Test
@@ -36,6 +35,9 @@ public class BigNumberImplTest {
     public void shiftLeft() {
        BigNumber num = new BigNumberImpl();
        num.shiftLeft(1);
+       num.addDigit(1);
+       num.shiftLeft(9);
+       assertEquals("1000000000", num.toString());
     }
 
     @Test
@@ -62,8 +64,16 @@ public class BigNumberImplTest {
         num.addDigit(4);
         num.shiftLeft(1);
         num.addDigit(5);
+        num.shiftLeft(1);
+        num.addDigit(6);
+        num.shiftLeft(1);
+        num.addDigit(7);
+        num.shiftLeft(1);
+        num.addDigit(8);
+        num.shiftLeft(1);
+        num.addDigit(9);
         System.out.println(num.toString());
-        assertEquals(5, num.getDigitAt(0));
+        assertEquals(7, num.getDigitAt(2));
     }
 
     @Test

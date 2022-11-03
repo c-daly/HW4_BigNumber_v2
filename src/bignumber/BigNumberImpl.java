@@ -13,7 +13,6 @@ public class BigNumberImpl implements BigNumber {
 
     public BigNumberImpl(String number) {
         this.digits = new LinkedList<Integer>();
-        digits.add(0);
 
         for (int x = 0; x < number.length(); x++) {
             int i = Character.getNumericValue(number.charAt(x));
@@ -39,6 +38,7 @@ public class BigNumberImpl implements BigNumber {
             addDigit(i);
         }
     }
+
     @Override
     public int length() {
         return digits.length();
@@ -46,9 +46,9 @@ public class BigNumberImpl implements BigNumber {
 
     @Override
     public void shiftLeft(int num_shifts) {
-        if (digitsEqualZero()) {
-            return;
-        }
+        //if (digitsEqualZero()) {
+        //    return;
+        //}
         if (num_shifts < 0) {
             //shiftRight(num_shifts * -1);
             return;
@@ -104,9 +104,9 @@ public class BigNumberImpl implements BigNumber {
         int index = 0;
         int newDigit;
         int longestLength = length() > number.length() ? length() : number.length();
-        for(int x=0; x<=longestLength;x++) {
-            int x1 = x <= digits.length() ? getDigitAt(x) : 0;
-            int x2 = x <= number.length() ? number.getDigitAt(x) : 0;
+        for (int x = 0; x <= longestLength; x++) {
+            int x1 = x < digits.length() ? getDigitAt(x) : 0;
+            int x2 = x < number.length() ? number.getDigitAt(x) : 0;
             newNumber.shiftLeft(1);
             newNumber.addDigit(x1);
             newNumber.addDigit(x2);
@@ -141,8 +141,8 @@ public class BigNumberImpl implements BigNumber {
 
     private boolean digitsEqualZero() {
         ILinkedListIterator<Integer> it = digits.iterator();
-        if(it.next() > 0) {
-           return false;
+        if(it.currentValue() > 0) {
+            return false;
         }
         while (it.hasNext()) {
             if (it.next() > 0) {
