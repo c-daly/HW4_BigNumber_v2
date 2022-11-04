@@ -41,6 +41,10 @@ public class LinkedListIterator<T> implements ILinkedListIterator<T> {
         current = current.prev;
         return data;
     }
+    @Override
+    public boolean hasPrev() {
+        return current.prev != null;
+    }
 
     @Override
     public void set(T value) {

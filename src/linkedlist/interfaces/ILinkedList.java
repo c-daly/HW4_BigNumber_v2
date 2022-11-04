@@ -6,6 +6,7 @@ public interface ILinkedList<T extends Comparable<T>> extends Iterable<T> {
     int length();
     void add(T val);
     void addToHead(T val);
+    void addToTail(T val);
     T get(int index);
     void set(int index, T value);
     void remove(int index);
