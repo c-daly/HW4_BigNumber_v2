@@ -97,7 +97,7 @@ public class BigNumberImplTest {
         BigNumber num1 = new BigNumberImpl("1009");
         BigNumber num2 = new BigNumberImpl("111");
         BigNumber result = num1.add(num2);
-        assertEquals("1111", result.toString());
+        assertEquals("1120", result.toString());
     }
 
     @Test

@@ -6,59 +6,58 @@ import linkedlist.interfaces.ILinkedList;
 
 public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
     private Node<T> head;
+    private Node<T> tail;
     private T defaultValue = null;
     private int length = 0;
     //public LinkedList() {}
     public LinkedList(T initial_val) {
         head = new Node<T>(initial_val);
+        tail = head;
         defaultValue = initial_val;
+        length = 1;
     }
 
     @Override
     public int length() {
-        int length = 1;
-        if (head == null) {
-            return 0;
-        }
-
-        Node<T> tp = head;
-        while (tp.next != null) {
-            tp = tp.next;
-            length++;
-        }
-
-
         return length;
+        //int length = 1;
+        //if (head == null) {
+        //    return 0;
+        //}
+
+        //Node<T> tp = head;
+        //while (tp.next != null) {
+        //    tp = tp.next;
+        //    length++;
+        //}
     }
 
     @Override
     public void add(T val) {
         if (head == null) {
             addToHead(val);
+            tail = head;
         } else {
-            Node<T> tp = head;
-            while (tp.next != null) {
-                tp = tp.next;
-            }
-            tp.next = new Node<T>(val);
+            //Node<T> tp = head;
+            //while (tp.next != null) {
+            //    tp = tp.next;
+            //}
+            tail.next = new Node<T>(val);
+            tail = tail.next;
         }
-
+        length += 1;
     }
 
     public void addToHead(T val) {
         if (head == null) {
             head = new Node<T>(val);
+            tail = head;
         } else {
             Node<T> newHead = new Node<T>(val);
             newHead.next = head;
             head = newHead;
         }
-    }
-    public void addToTail(T val) {
-        Node<T> lastNode = getNodeAtIndex(length() - 1);
-        Node<T> newNode = new Node<T>(val);
-        lastNode.next = newNode;
-        newNode.prev = lastNode;
+        length += 1;
     }
 
     @Override
@@ -70,6 +69,7 @@ public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
             if (x == index) {
                 return tp.value;
             }
+
             x += 1;
             tp = tp.next;
         }
@@ -78,30 +78,31 @@ public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
 
     @Override
     public void set(int index, T value) {
-        Node<T> tp = head;
-        int x = 0;
-        while (tp.next != null) {
-            if (x == index) {
+        if(index == 0) {
+            head.value = value;
+        } else {
+            if (index < length()) {
+                Node<T> tp = getNodeAtIndex(index);
                 tp.value = value;
             }
-            tp = tp.next;
-            x++;
         }
-    }
+   }
 
     @Override
     public void remove(int index) {
+
+        if (index == 0) {
+            removeHead();
+            length -= 1;
+            return;
+        }
         if (index >= length()) {
             throw new IllegalArgumentException();
         }
 
-        if (index == 0) {
-            removeHead();
-            return;
-        }
-
         if (index == length() - 1) {
             removeTail();
+            length -= 1;
             return;
         }
         Node<T> nodeToRemove = getNodeAtIndex(index);
@@ -118,11 +119,14 @@ public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
         } else {
             head = new Node<T>(defaultValue);
         }
+        length -= 1;
     }
 
     private void removeTail() {
         Node<T> secondToLastNode = getNodeAtIndex(length() - 2);
         secondToLastNode.next = null;
+        tail = secondToLastNode;
+        length -= 1;
     }
 
     @Override
@@ -137,6 +141,7 @@ public class LinkedList<T extends Comparable<T>> implements ILinkedList<T> {
             if (x == index) {
                return tp;
             }
+            tp = tp.next;
             x++;
         }
         return tp;
